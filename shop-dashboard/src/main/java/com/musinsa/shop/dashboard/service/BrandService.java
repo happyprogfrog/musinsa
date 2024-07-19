@@ -42,7 +42,6 @@ public class BrandService {
 
     public Brand createBrand(CreateBrandRequest request) {
         validateBrandRequest(request.alias(), request.name());
-        validateAliasUniqueness(request.alias());
 
         Brand brand = Brand.builder()
                 .alias(request.alias())
@@ -54,6 +53,8 @@ public class BrandService {
 
     public Brand modifyBrand(UpdateBrandRequest request) {
         Brand brand = findBrandByIdOrThrow(request.id());
+
+        validateBrandRequest(request.alias(), request.name());
 
         brand.update(request.alias(), request.name());
 
@@ -74,6 +75,7 @@ public class BrandService {
     private void validateBrandRequest(String alias, String name) {
         Assert.hasLength(alias, "브랜드 별칭은 비워둘 수 없습니다");
         Assert.hasLength(name, "브랜드 이름은 비워둘 수 없습니다");
+        validateAliasUniqueness(alias);
     }
 
     private void validateAliasUniqueness(String alias) {

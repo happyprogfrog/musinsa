@@ -10,6 +10,7 @@ import com.musinsa.shop.dashboard.service.exception.BrandNotFoundException;
 import com.musinsa.shop.dashboard.service.exception.DuplicateAliasException;
 import com.musinsa.shop.domain.model.Brand;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,14 +18,11 @@ import java.util.List;
 
 import static com.musinsa.shop.dashboard.controller.dto.BrandDto.UpdateBrandRequest;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/brands")
 public class BrandController {
     private final BrandService brandService;
-
-    public BrandController(BrandService brandService) {
-        this.brandService = brandService;
-    }
 
     @GetMapping("/{brandId}")
     ApiResponse<BrandResponse> getBrandById(@PathVariable(name = "brandId") Long brandId) {
@@ -69,6 +67,8 @@ public class BrandController {
             brand = brandService.modifyBrand(request);
         } catch (BrandNotFoundException ex) {
             throw new CommonShopDashboardHttpException(ErrorCodes.BRAND_NOT_FOUND, HttpStatus.NOT_FOUND);
+        } catch (DuplicateAliasException ex) {
+            throw new CommonShopDashboardHttpException(ErrorCodes.DUPLICATE_ALIAS, HttpStatus.CONFLICT);
         }
 
         return ApiResponse.just(BrandResponse.of(brand));
