@@ -3,6 +3,7 @@ package com.musinsa.shop.dashboard.service;
 import com.musinsa.shop.dashboard.controller.dto.BrandDto.CreateBrandRequest;
 import com.musinsa.shop.dashboard.controller.dto.BrandDto.UpdateBrandRequest;
 import com.musinsa.shop.dashboard.service.exception.BrandNotFoundException;
+import com.musinsa.shop.dashboard.service.exception.DuplicateAliasException;
 import com.musinsa.shop.dashboard.service.persistence.CommandBrandPort;
 import com.musinsa.shop.dashboard.service.persistence.LoadBrandPort;
 import com.musinsa.shop.domain.model.Brand;
@@ -87,7 +88,7 @@ class BrandServiceTest {
         }
 
         @Test
-        @DisplayName("brandId 조회 시 Brand 존재하지 않을 경우 ResourceNotFoundException throw")
+        @DisplayName("brandId 조회 시 Brand 존재하지 않을 경우 BrandNotFoundException throw")
         void throwBrandNotFoundException_1() {
             // given
             given(loadBrandPort.findBrandById(any()))
@@ -99,7 +100,7 @@ class BrandServiceTest {
         }
 
         @Test
-        @DisplayName("alias 조회 시 Brand 존재하지 않을 경우 ResourceNotFoundException throw")
+        @DisplayName("alias 조회 시 Brand 존재하지 않을 경우 BrandNotFoundException throw")
         void throwBrandNotFoundException_2() {
             // given
             given(loadBrandPort.findBrandByAlias(any()))
@@ -203,6 +204,27 @@ class BrandServiceTest {
             // then
             then(result)
                     .isEqualTo(modifiedBrand);
+        }
+
+        @Test
+        @DisplayName("중복된 alias로 수정하면 예외")
+        void throwDuplicateAliasException() {
+            // given
+            final var brand = BrandFixtures.brand();
+            given(loadBrandPort.findBrandById(any()))
+                    .willReturn(Optional.of(brand));
+
+            final var modifiedBrand = Brand.builder()
+                    .id(brand.getId())
+                    .alias("new alias")
+                    .name("new name")
+                    .build();
+            given(loadBrandPort.findBrandByAlias(any()))
+                    .willReturn(Optional.of(modifiedBrand));
+
+            // when & then
+            thenThrownBy(() -> sut.modifyBrand(request))
+                    .isInstanceOf(DuplicateAliasException.class);
         }
     }
 

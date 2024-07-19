@@ -255,7 +255,7 @@ class BrandControllerTest {
         )
         void throwInvalidParamBadRequest(String desc, String alias, String name) throws Exception {
             // given
-            final var request = new CreateBrandRequest(alias, name);
+            final var request = new UpdateBrandRequest(1L, alias, name);
 
             // when & then
             final var body = objectMapper.writeValueAsString(request);
@@ -265,6 +265,30 @@ class BrandControllerTest {
                     )
                     .andDo(print())
                     .andExpect(status().isBadRequest());
+        }
+
+        @Test
+        @DisplayName("이미 존재하는 alias이면 409 CONFLICT")
+        void returnDuplicateAliasResponse() throws Exception {
+            // given
+            given(brandService.modifyBrand(any()))
+                    .willThrow(new DuplicateAliasException());
+
+            // when
+            final var request = new UpdateBrandRequest(1L, "musinsastandard", "무신사 스탠다드");
+            final var body = objectMapper.writeValueAsString(request);
+            final var result = mockMvc.perform(put(URL_PREFIX_V1)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(body)
+                    )
+                    .andDo(print())
+                    .andExpect(status().isConflict())
+                    .andReturn();
+
+            // then
+            assertMvcErrorEquals(result, ErrorCodes.DUPLICATE_ALIAS);
+
+            verify(brandService).modifyBrand(request);
         }
     }
 
