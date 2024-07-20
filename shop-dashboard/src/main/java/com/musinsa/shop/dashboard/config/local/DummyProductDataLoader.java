@@ -43,6 +43,7 @@ public class DummyProductDataLoader implements CommandLineRunner {
                 CategoryCode.OUTER,
                 CategoryCode.PANTS,
                 CategoryCode.SNEAKERS,
+                CategoryCode.BAG,
                 CategoryCode.HAT,
                 CategoryCode.SOCKS,
                 CategoryCode.ACCESSORY
