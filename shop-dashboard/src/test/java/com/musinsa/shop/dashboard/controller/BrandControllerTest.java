@@ -154,11 +154,8 @@ class BrandControllerTest {
 
             // then
             assertMvcDataEquals(result, dataField -> {
-                final var actualBrandAlias = dataField.get("alias").asText();
-                assertEquals(createdBrand.getAlias(), actualBrandAlias);
-
-                final var actualBrandName = dataField.get("name").asText();
-                assertEquals(createdBrand.getName(), actualBrandName);
+                assertEquals(createdBrand.getAlias(), dataField.get("alias").asText());
+                assertEquals(createdBrand.getName(), dataField.get("name").asText());
             });
 
             verify(brandService).createBrand(request);
@@ -185,7 +182,7 @@ class BrandControllerTest {
                         .content(body)
                     )
                     .andDo(print())
-                    .andExpectAll(status().isBadRequest());
+                    .andExpect(status().isBadRequest());
         }
 
         @Test
@@ -220,7 +217,7 @@ class BrandControllerTest {
         @DisplayName("Brand 변경 성공시 200 OK")
         void returnModifiedBrand() throws Exception {
             // given
-            var modifiedBrand = BrandFixtures.brand();
+            final var modifiedBrand = BrandFixtures.brand();
             given(brandService.modifyBrand(any()))
                     .willReturn(modifiedBrand);
 

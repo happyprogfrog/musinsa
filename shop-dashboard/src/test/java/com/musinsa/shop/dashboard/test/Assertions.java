@@ -23,7 +23,7 @@ public class Assertions {
 
         assertNotNull(errorField);
         assertTrue(errorField.isObject());
-        assertEquals(errorCodes.code, errorField.get("code").asLong());
+        assertEquals(errorCodes.code, errorField.get("code").asText());
         assertEquals(errorCodes.message, errorField.get("localMessage").asText());
     }
 

@@ -109,7 +109,7 @@ class ProductServiceTest {
                     .willReturn(List.of(product1, product2));
 
             // when
-            final var result = sut.getProductsByCategoryCode(CategoryCode.TOP);
+            final var result = sut.getProductsByCategoryCode(CategoryCode.TOP.getKey());
 
             // then
             then(result).hasSize(2);
@@ -147,7 +147,7 @@ class ProductServiceTest {
                     .willReturn(Optional.empty());
 
             // when & then
-            thenThrownBy(() -> sut.getProductsByCategoryCode(CategoryCode.BAG))
+            thenThrownBy(() -> sut.getProductsByCategoryCode(CategoryCode.BAG.getKey()))
                     .isInstanceOf(CategoryNotFoundException.class);
         }
     }
@@ -159,7 +159,7 @@ class ProductServiceTest {
         @DisplayName("생성된 Product 확인")
         void returnCreateProduct() {
             // given
-            final var request = new CreateProductRequest(1L, CategoryCode.BAG, "name", 1000L);
+            final var request = new CreateProductRequest(1L, CategoryCode.BAG.getKey(), "name", 1000L);
 
             final var brand = BrandFixtures.brand();
             given(loadBrandPort.findBrandById(any()))
@@ -190,7 +190,7 @@ class ProductServiceTest {
         )
         @DisplayName("정상적이지 않은 name이면 IllegalArgumentException")
         void throwIllegalArgumentException(String desc, String name) {
-            final var request = new CreateProductRequest(5L, CategoryCode.BAG, name, 1000L);
+            final var request = new CreateProductRequest(5L, CategoryCode.BAG.getKey(), name, 1000L);
 
             thenThrownBy(() -> sut.createProduct(request))
                     .isInstanceOf(IllegalArgumentException.class);
@@ -199,7 +199,7 @@ class ProductServiceTest {
         @Test
         @DisplayName("정상적이지 않은 price이면 InvalidPriceException")
         void throwInvalidPriceException() {
-            final var request = new CreateProductRequest(5L, CategoryCode.BAG, "name", -1000L);
+            final var request = new CreateProductRequest(5L, CategoryCode.BAG.getKey(), "name", -1000L);
 
             thenThrownBy(() -> sut.createProduct(request))
                     .isInstanceOf(InvalidPriceException.class);
@@ -213,7 +213,7 @@ class ProductServiceTest {
 
         @BeforeEach
         void setUp() {
-            request = new UpdateProductRequest(1L, 6L, CategoryCode.ACCESSORY, "new name", 9999L);
+            request = new UpdateProductRequest(1L, 6L, CategoryCode.ACCESSORY.getKey(), "new name", 9999L);
         }
 
         @Test
