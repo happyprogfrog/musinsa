@@ -50,15 +50,20 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public List<Product> getProductsByCategoryCode(CategoryCode categoryCode) {
+    public List<Product> getProductsByCategoryCode(String categoryCodeKey) {
+        CategoryCode categoryCode = getCategoryCodeFromKey(categoryCodeKey);
         findCategoryByCodeOrThrow(categoryCode);
+
         return loadProductPort.findProductsByCategoryCode(categoryCode);
     }
 
     public Product createProduct(CreateProductRequest request) {
         validateProductRequest(request.name(), request.price());
+
         Brand brand = findBrandByIdOrThrow(request.brandId());
-        Category category = findCategoryByCodeOrThrow(request.categoryCode());
+
+        CategoryCode categoryCode = getCategoryCodeFromKey(request.categoryCodeKey());
+        Category category = findCategoryByCodeOrThrow(categoryCode);
 
         Product product = Product.builder()
                 .brand(brand)
@@ -74,8 +79,11 @@ public class ProductService {
         Product product = findProductByIdOrThrow(request.id());
 
         validateProductRequest(request.name(), request.price());
+
         Brand brand = findBrandByIdOrThrow(request.brandId());
-        Category category = findCategoryByCodeOrThrow(request.categoryCode());
+
+        CategoryCode categoryCode = getCategoryCodeFromKey(request.categoryCodeKey());
+        Category category = findCategoryByCodeOrThrow(categoryCode);
 
         product.update(brand, category, request.name(), request.price());
 
@@ -117,5 +125,17 @@ public class ProductService {
     private Category findCategoryByCodeOrThrow(CategoryCode categoryCode) {
         return loadCategoryPort.findCategoryByCode(categoryCode)
                 .orElseThrow(CategoryNotFoundException::new);
+    }
+
+    private CategoryCode getCategoryCodeFromKey(String categoryCodeKey) {
+        CategoryCode categoryCode;
+
+        try {
+            categoryCode = CategoryCode.fromKey(categoryCodeKey);
+        } catch (IllegalArgumentException ex) {
+            throw new CategoryNotFoundException();
+        }
+
+        return categoryCode;
     }
 }

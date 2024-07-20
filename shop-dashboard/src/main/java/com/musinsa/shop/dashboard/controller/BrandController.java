@@ -1,17 +1,12 @@
 package com.musinsa.shop.dashboard.controller;
 
 import com.musinsa.shop.dashboard.common.controller.ApiResponse;
-import com.musinsa.shop.dashboard.controller.consts.ErrorCodes;
 import com.musinsa.shop.dashboard.controller.dto.BrandDto.BrandResponse;
 import com.musinsa.shop.dashboard.controller.dto.BrandDto.CreateBrandRequest;
-import com.musinsa.shop.dashboard.controller.exception.CommonShopDashboardHttpException;
 import com.musinsa.shop.dashboard.service.BrandService;
-import com.musinsa.shop.dashboard.service.exception.BrandNotFoundException;
-import com.musinsa.shop.dashboard.service.exception.DuplicateAliasException;
 import com.musinsa.shop.domain.model.Brand;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,13 +21,7 @@ public class BrandController {
 
     @GetMapping("/{brandId}")
     ApiResponse<BrandResponse> getBrandById(@PathVariable(name = "brandId") Long brandId) {
-        Brand brand;
-
-        try {
-            brand = brandService.getBrandById(brandId);
-        } catch (BrandNotFoundException ex) {
-            throw new CommonShopDashboardHttpException(ErrorCodes.BRAND_NOT_FOUND, HttpStatus.NOT_FOUND);
-        }
+        Brand brand = brandService.getBrandById(brandId);
 
         return ApiResponse.just(BrandResponse.of(brand));
     }
@@ -48,38 +37,20 @@ public class BrandController {
 
     @PostMapping
     ApiResponse<BrandResponse> postBrand(@Valid @RequestBody CreateBrandRequest request) {
-        Brand brand;
-
-        try {
-            brand = brandService.createBrand(request);
-        } catch (DuplicateAliasException ex) {
-            throw new CommonShopDashboardHttpException(ErrorCodes.DUPLICATE_ALIAS, HttpStatus.CONFLICT);
-        }
+        Brand brand = brandService.createBrand(request);
 
         return ApiResponse.just(BrandResponse.of(brand));
     }
 
     @PutMapping
     ApiResponse<BrandResponse> putBrand(@Valid @RequestBody UpdateBrandRequest request) {
-        Brand brand;
-
-        try {
-            brand = brandService.modifyBrand(request);
-        } catch (BrandNotFoundException ex) {
-            throw new CommonShopDashboardHttpException(ErrorCodes.BRAND_NOT_FOUND, HttpStatus.NOT_FOUND);
-        } catch (DuplicateAliasException ex) {
-            throw new CommonShopDashboardHttpException(ErrorCodes.DUPLICATE_ALIAS, HttpStatus.CONFLICT);
-        }
+        Brand brand = brandService.modifyBrand(request);
 
         return ApiResponse.just(BrandResponse.of(brand));
     }
 
     @DeleteMapping("/{brandId}")
     void deleteBrand(@PathVariable(name = "brandId") Long brandId) {
-        try {
-            brandService.deleteBrand(brandId);
-        } catch (BrandNotFoundException ex) {
-            throw new CommonShopDashboardHttpException(ErrorCodes.BRAND_NOT_FOUND, HttpStatus.NOT_FOUND);
-        }
+        brandService.deleteBrand(brandId);
     }
 }
