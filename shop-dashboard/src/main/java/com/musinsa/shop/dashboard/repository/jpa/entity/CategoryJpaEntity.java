@@ -1,5 +1,6 @@
 package com.musinsa.shop.dashboard.repository.jpa.entity;
 
+import com.musinsa.shop.dashboard.repository.jpa.converter.CategoryCodeConverter;
 import com.musinsa.shop.domain.enums.CategoryCode;
 import com.musinsa.shop.domain.model.Category;
 import jakarta.persistence.*;
@@ -14,7 +15,7 @@ public class CategoryJpaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = CategoryCodeConverter.class)
     @Column(name = "code", nullable = false, unique = true)
     private CategoryCode code;
 
