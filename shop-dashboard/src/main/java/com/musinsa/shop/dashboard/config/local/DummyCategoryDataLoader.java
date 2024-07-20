@@ -2,6 +2,7 @@ package com.musinsa.shop.dashboard.config.local;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.annotation.Order;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -9,6 +10,7 @@ import javax.sql.DataSource;
 
 @Component
 @Profile("local")
+@Order(1)
 public class DummyCategoryDataLoader implements CommandLineRunner {
     private final JdbcTemplate jdbcTemplate;
 
@@ -18,7 +20,7 @@ public class DummyCategoryDataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        createCategoryTable();
+        // createCategoryTable();
         loadCategories();
     }
 
