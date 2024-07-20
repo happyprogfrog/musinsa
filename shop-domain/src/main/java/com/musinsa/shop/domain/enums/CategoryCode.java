@@ -1,7 +1,12 @@
 package com.musinsa.shop.domain.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.util.Arrays;
 
+@Getter
+@AllArgsConstructor
 public enum CategoryCode {
     TOP("001", "상의"),
     OUTER("002", "아우터"),
@@ -12,26 +17,13 @@ public enum CategoryCode {
     SOCKS("007", "양말"),
     ACCESSORY("008", "악세서리");
 
-    private final String code;
-    private final String name;
+    private final String key;
+    private final String value;
 
-    CategoryCode(String code, String name) {
-        this.code = code;
-        this.name = name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public static CategoryCode fromCode(String code) {
+    public static CategoryCode fromKey(String categoryCodeKey) {
         return Arrays.stream(CategoryCode.values())
-                .filter(categoryCode -> categoryCode.getCode().equals(code))
+                .filter(categoryCode -> categoryCode.getKey().equals(categoryCodeKey))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("잘못된 카테고리 코드: " + code));
+                .orElseThrow(() -> new IllegalArgumentException("잘못된 카테고리 코드 key: " + categoryCodeKey));
     }
 }
