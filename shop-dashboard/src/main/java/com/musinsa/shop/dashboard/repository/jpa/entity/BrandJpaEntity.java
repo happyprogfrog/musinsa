@@ -18,16 +18,18 @@ public class BrandJpaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 50, nullable = false)
+    @Column(name = "alias", length = 50, nullable = false)
     private String alias;
 
-    @Column(length = 50, nullable = false)
+    @Column(name = "name", length = 50, nullable = false)
     private String name;
 
     @CreatedDate
+    @Column(name = "created_at")
     private ZonedDateTime createdAt;
 
     @LastModifiedDate
+    @Column(name = "updated_at")
     private ZonedDateTime updatedAt;
 
     protected BrandJpaEntity() {

@@ -5,18 +5,16 @@ import com.musinsa.shop.dashboard.repository.jpa.entity.BrandJpaEntity;
 import com.musinsa.shop.dashboard.service.persistence.CommandBrandPort;
 import com.musinsa.shop.dashboard.service.persistence.LoadBrandPort;
 import com.musinsa.shop.domain.model.Brand;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 @Component
 public class BrandPersistenceAdapter implements LoadBrandPort, CommandBrandPort {
     private final BrandJpaRepository brandJpaRepository;
-
-    public BrandPersistenceAdapter(BrandJpaRepository brandJpaRepository) {
-        this.brandJpaRepository = brandJpaRepository;
-    }
 
     @Override
     public Optional<Brand> findBrandById(Long brandId) {
