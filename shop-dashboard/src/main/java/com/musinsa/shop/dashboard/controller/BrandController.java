@@ -23,13 +23,13 @@ public class BrandController {
     ApiResponse<BrandResponse> getBrandById(@PathVariable(name = "brandId") Long brandId) {
         Brand brand = brandService.getBrandById(brandId);
 
-        return ApiResponse.just(BrandResponse.of(brand));
+        return ApiResponse.just(BrandResponse.fromDomain(brand));
     }
 
     @GetMapping
     ApiResponse<List<BrandResponse>> getAllBrands() {
         List<BrandResponse> brandResponses = brandService.getAllBrands().stream()
-                .map(BrandResponse::of)
+                .map(BrandResponse::fromDomain)
                 .toList();
 
         return ApiResponse.just(brandResponses);
@@ -39,14 +39,14 @@ public class BrandController {
     ApiResponse<BrandResponse> postBrand(@Valid @RequestBody CreateBrandRequest request) {
         Brand brand = brandService.createBrand(request);
 
-        return ApiResponse.just(BrandResponse.of(brand));
+        return ApiResponse.just(BrandResponse.fromDomain(brand));
     }
 
     @PutMapping
     ApiResponse<BrandResponse> putBrand(@Valid @RequestBody UpdateBrandRequest request) {
         Brand brand = brandService.modifyBrand(request);
 
-        return ApiResponse.just(BrandResponse.of(brand));
+        return ApiResponse.just(BrandResponse.fromDomain(brand));
     }
 
     @DeleteMapping("/{brandId}")

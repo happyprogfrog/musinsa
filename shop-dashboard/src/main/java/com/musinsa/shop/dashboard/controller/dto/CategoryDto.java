@@ -10,7 +10,7 @@ public class CategoryDto {
             @NotBlank
             String value
     ) {
-         public static CategoryResponse of(Category category) {
+         public static CategoryResponse fromDomain(Category category) {
             return new CategoryResponse(
                     category.getCode().getKey(),
                     category.getCode().getValue()

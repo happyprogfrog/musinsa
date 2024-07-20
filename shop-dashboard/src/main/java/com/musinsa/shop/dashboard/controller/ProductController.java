@@ -23,13 +23,13 @@ public class ProductController {
     ApiResponse<ProductResponse> getProductById(@PathVariable(name = "productId") Long productId) {
         Product product = productService.getProductById(productId);
 
-        return ApiResponse.just(ProductResponse.of(product));
+        return ApiResponse.just(ProductResponse.fromDomain(product));
     }
 
     @GetMapping(params = "brandAlias")
     ApiResponse<List<ProductResponse>> getAllBrandsByBrandAlias(@RequestParam(name = "brandAlias") String brandAlias) {
         List<ProductResponse> productResponses = productService.getProductsByBrandAlias(brandAlias).stream()
-                .map(ProductResponse::of)
+                .map(ProductResponse::fromDomain)
                 .toList();
 
         return ApiResponse.just(productResponses);
@@ -38,7 +38,7 @@ public class ProductController {
     @GetMapping(params = "categoryCode")
     ApiResponse<List<ProductResponse>> getAllBrandsByCategoryCode(@RequestParam(name = "categoryCode") String categoryCodeKey) {
         List<ProductResponse> productResponses = productService.getProductsByCategoryCode(categoryCodeKey).stream()
-                .map(ProductResponse::of)
+                .map(ProductResponse::fromDomain)
                 .toList();
 
         return ApiResponse.just(productResponses);
@@ -48,14 +48,14 @@ public class ProductController {
     ApiResponse<ProductResponse> postProduct(@Valid @RequestBody CreateProductRequest request) {
         Product product = productService.createProduct(request);
 
-        return ApiResponse.just(ProductResponse.of(product));
+        return ApiResponse.just(ProductResponse.fromDomain(product));
     }
 
     @PutMapping
     ApiResponse<ProductResponse> putProduct(@Valid @RequestBody UpdateProductRequest request) {
         Product product = productService.modifyProduct(request);
 
-        return ApiResponse.just(ProductResponse.of(product));
+        return ApiResponse.just(ProductResponse.fromDomain(product));
     }
 
     @DeleteMapping("/{productId}")

@@ -46,11 +46,11 @@ public class ProductDto {
             @NotNull
             Long price
     ) {
-        public static ProductResponse of(Product product) {
+        public static ProductResponse fromDomain(Product product) {
             return new ProductResponse(
                     product.getId(),
-                    BrandResponse.of(product.getBrand()),
-                    CategoryResponse.of(product.getCategory()),
+                    BrandResponse.fromDomain(product.getBrand()),
+                    CategoryResponse.fromDomain(product.getCategory()),
                     product.getName(),
                     product.getPrice()
             );

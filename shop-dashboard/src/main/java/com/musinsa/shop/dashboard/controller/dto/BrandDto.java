@@ -32,7 +32,7 @@ public class BrandDto {
             @NotBlank
             String name
     ) {
-        public static BrandResponse of(Brand brand) {
+        public static BrandResponse fromDomain(Brand brand) {
             return new BrandResponse(
                     brand.getId(),
                     brand.getAlias(),
