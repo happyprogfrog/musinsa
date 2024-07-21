@@ -1,3 +1,5 @@
 rootProject.name = 'musinsa'
 include 'shop-domain'
 include 'shop-dashboard'
+include 'shop-style'
+
