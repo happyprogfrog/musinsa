@@ -7,22 +7,19 @@ import com.musinsa.shop.dashboard.service.exception.DuplicateAliasException;
 import com.musinsa.shop.dashboard.service.persistence.CommandBrandPort;
 import com.musinsa.shop.dashboard.service.persistence.LoadBrandPort;
 import com.musinsa.shop.domain.model.Brand;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 @Transactional
 public class BrandService {
     private final LoadBrandPort loadBrandPort;
     private final CommandBrandPort commandBrandPort;
-
-    public BrandService(LoadBrandPort loadBrandPort, CommandBrandPort commandBrandPort) {
-        this.loadBrandPort = loadBrandPort;
-        this.commandBrandPort = commandBrandPort;
-    }
 
     @Transactional(readOnly = true)
     public Brand getBrandById(Long brandId) {

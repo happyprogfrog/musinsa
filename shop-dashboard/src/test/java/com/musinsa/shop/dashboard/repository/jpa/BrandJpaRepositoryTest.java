@@ -1,6 +1,6 @@
 package com.musinsa.shop.dashboard.repository.jpa;
 
-import com.musinsa.shop.dashboard.repository.jpa.entity.BrandJpaEntity;
+import com.musinsa.shop.domain.entity.BrandJpaEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

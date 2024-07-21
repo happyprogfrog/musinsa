@@ -1,7 +1,7 @@
 package com.musinsa.shop.dashboard.repository;
 
 import com.musinsa.shop.dashboard.repository.jpa.ProductJpaRepository;
-import com.musinsa.shop.dashboard.repository.jpa.entity.*;
+import com.musinsa.shop.domain.entity.*;
 import com.musinsa.shop.domain.enums.CategoryCode;
 import com.musinsa.shop.domain.model.Brand;
 import com.musinsa.shop.domain.model.Category;

@@ -14,12 +14,14 @@ import com.musinsa.shop.domain.enums.CategoryCode;
 import com.musinsa.shop.domain.model.Brand;
 import com.musinsa.shop.domain.model.Category;
 import com.musinsa.shop.domain.model.Product;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 @Transactional
 public class ProductService {
@@ -27,16 +29,6 @@ public class ProductService {
     private final LoadCategoryPort loadCategoryPort;
     private final LoadProductPort loadProductPort;
     private final CommandProductPort commandProductPort;
-
-    public ProductService(LoadBrandPort loadBrandPort,
-                          LoadCategoryPort loadCategoryPort,
-                          LoadProductPort loadProductPort,
-                          CommandProductPort commandProductPort) {
-        this.loadBrandPort = loadBrandPort;
-        this.loadCategoryPort = loadCategoryPort;
-        this.loadProductPort = loadProductPort;
-        this.commandProductPort = commandProductPort;
-    }
 
     @Transactional(readOnly = true)
     public Product getProductById(Long productId) {

@@ -1,4 +1,4 @@
-package com.musinsa.shop.dashboard.repository.jpa.converter;
+package com.musinsa.shop.domain.converter;
 
 import com.musinsa.shop.domain.enums.CategoryCode;
 import jakarta.persistence.AttributeConverter;

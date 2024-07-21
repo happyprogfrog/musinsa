@@ -1,6 +1,6 @@
 package com.musinsa.shop.dashboard.repository.jpa;
 
-import com.musinsa.shop.dashboard.repository.jpa.entity.ProductJpaEntity;
+import com.musinsa.shop.domain.entity.ProductJpaEntity;
 import com.musinsa.shop.domain.enums.CategoryCode;
 import org.springframework.data.jpa.repository.JpaRepository;
 

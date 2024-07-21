@@ -1,6 +1,6 @@
-package com.musinsa.shop.dashboard.repository.jpa.entity;
+package com.musinsa.shop.domain.entity;
 
-import com.musinsa.shop.dashboard.repository.jpa.converter.CategoryCodeConverter;
+import com.musinsa.shop.domain.converter.CategoryCodeConverter;
 import com.musinsa.shop.domain.enums.CategoryCode;
 import com.musinsa.shop.domain.model.Category;
 import jakarta.persistence.*;

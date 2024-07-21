@@ -1,4 +1,4 @@
-package com.musinsa.shop.dashboard.repository.jpa.entity;
+package com.musinsa.shop.domain.entity;
 
 public class ProductJpaEntityFixtures {
     public static ProductJpaEntity entity() {

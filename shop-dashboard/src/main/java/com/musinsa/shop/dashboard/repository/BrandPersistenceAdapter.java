@@ -1,17 +1,18 @@
 package com.musinsa.shop.dashboard.repository;
 
 import com.musinsa.shop.dashboard.repository.jpa.BrandJpaRepository;
-import com.musinsa.shop.dashboard.repository.jpa.entity.BrandJpaEntity;
+import com.musinsa.shop.domain.entity.BrandJpaEntity;
 import com.musinsa.shop.dashboard.service.persistence.CommandBrandPort;
 import com.musinsa.shop.dashboard.service.persistence.LoadBrandPort;
 import com.musinsa.shop.domain.model.Brand;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Component
 public class BrandPersistenceAdapter implements LoadBrandPort, CommandBrandPort {
     private final BrandJpaRepository brandJpaRepository;
