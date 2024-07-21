@@ -1,18 +1,18 @@
 package com.musinsa.shop.dashboard.repository;
 
 import com.musinsa.shop.dashboard.repository.jpa.ProductJpaRepository;
-import com.musinsa.shop.dashboard.repository.jpa.entity.ProductJpaEntity;
 import com.musinsa.shop.dashboard.service.persistence.CommandProductPort;
 import com.musinsa.shop.dashboard.service.persistence.LoadProductPort;
+import com.musinsa.shop.domain.entity.ProductJpaEntity;
 import com.musinsa.shop.domain.enums.CategoryCode;
 import com.musinsa.shop.domain.model.Product;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Component
 public class ProductPersistenceAdapter implements LoadProductPort, CommandProductPort {
     private final ProductJpaRepository productJpaRepository;

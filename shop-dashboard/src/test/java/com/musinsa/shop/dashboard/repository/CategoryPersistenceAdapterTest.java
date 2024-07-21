@@ -1,7 +1,7 @@
 package com.musinsa.shop.dashboard.repository;
 
 import com.musinsa.shop.dashboard.repository.jpa.CategoryJpaRepository;
-import com.musinsa.shop.dashboard.repository.jpa.entity.CategoryJpaEntityFixtures;
+import com.musinsa.shop.domain.entity.CategoryJpaEntityFixtures;
 import com.musinsa.shop.domain.enums.CategoryCode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

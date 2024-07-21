@@ -1,5 +1,8 @@
 package com.musinsa.shop.dashboard.controller.consts;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 public enum ErrorCodes {
     // 공통 예외
     INVALID_REQUEST("유효하지 않은 요청입니다", "ERR-COMMON-001"),
@@ -17,9 +20,4 @@ public enum ErrorCodes {
 
     public final String message;
     public final String code;
-
-    ErrorCodes(String message, String code) {
-        this.message = message;
-        this.code = code;
-    }
 }

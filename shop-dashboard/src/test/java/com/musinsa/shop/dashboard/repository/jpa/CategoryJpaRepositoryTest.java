@@ -1,6 +1,6 @@
 package com.musinsa.shop.dashboard.repository.jpa;
 
-import com.musinsa.shop.dashboard.repository.jpa.entity.CategoryJpaEntity;
+import com.musinsa.shop.domain.entity.CategoryJpaEntity;
 import com.musinsa.shop.domain.enums.CategoryCode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

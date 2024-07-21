@@ -10,16 +10,19 @@ import com.musinsa.shop.dashboard.service.persistence.CommandProductPort;
 import com.musinsa.shop.dashboard.service.persistence.LoadBrandPort;
 import com.musinsa.shop.dashboard.service.persistence.LoadCategoryPort;
 import com.musinsa.shop.dashboard.service.persistence.LoadProductPort;
+import com.musinsa.shop.dashboard.service.utils.CategoryCodeUtils;
 import com.musinsa.shop.domain.enums.CategoryCode;
 import com.musinsa.shop.domain.model.Brand;
 import com.musinsa.shop.domain.model.Category;
 import com.musinsa.shop.domain.model.Product;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 @Transactional
 public class ProductService {
@@ -27,16 +30,6 @@ public class ProductService {
     private final LoadCategoryPort loadCategoryPort;
     private final LoadProductPort loadProductPort;
     private final CommandProductPort commandProductPort;
-
-    public ProductService(LoadBrandPort loadBrandPort,
-                          LoadCategoryPort loadCategoryPort,
-                          LoadProductPort loadProductPort,
-                          CommandProductPort commandProductPort) {
-        this.loadBrandPort = loadBrandPort;
-        this.loadCategoryPort = loadCategoryPort;
-        this.loadProductPort = loadProductPort;
-        this.commandProductPort = commandProductPort;
-    }
 
     @Transactional(readOnly = true)
     public Product getProductById(Long productId) {
@@ -51,7 +44,7 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public List<Product> getProductsByCategoryCode(String categoryCodeKey) {
-        CategoryCode categoryCode = getCategoryCodeFromKey(categoryCodeKey);
+        CategoryCode categoryCode = CategoryCodeUtils.getCategoryCodeFromKey(categoryCodeKey);
         findCategoryByCodeOrThrow(categoryCode);
 
         return loadProductPort.findProductsByCategoryCode(categoryCode);
@@ -62,7 +55,7 @@ public class ProductService {
 
         Brand brand = findBrandByIdOrThrow(request.brandId());
 
-        CategoryCode categoryCode = getCategoryCodeFromKey(request.categoryCodeKey());
+        CategoryCode categoryCode = CategoryCodeUtils.getCategoryCodeFromKey(request.categoryCodeKey());
         Category category = findCategoryByCodeOrThrow(categoryCode);
 
         Product product = Product.builder()
@@ -82,7 +75,7 @@ public class ProductService {
 
         Brand brand = findBrandByIdOrThrow(request.brandId());
 
-        CategoryCode categoryCode = getCategoryCodeFromKey(request.categoryCodeKey());
+        CategoryCode categoryCode = CategoryCodeUtils.getCategoryCodeFromKey(request.categoryCodeKey());
         Category category = findCategoryByCodeOrThrow(categoryCode);
 
         product.update(brand, category, request.name(), request.price());
@@ -125,17 +118,5 @@ public class ProductService {
     private Category findCategoryByCodeOrThrow(CategoryCode categoryCode) {
         return loadCategoryPort.findCategoryByCode(categoryCode)
                 .orElseThrow(CategoryNotFoundException::new);
-    }
-
-    private CategoryCode getCategoryCodeFromKey(String categoryCodeKey) {
-        CategoryCode categoryCode;
-
-        try {
-            categoryCode = CategoryCode.fromKey(categoryCodeKey);
-        } catch (IllegalArgumentException ex) {
-            throw new CategoryNotFoundException();
-        }
-
-        return categoryCode;
     }
 }

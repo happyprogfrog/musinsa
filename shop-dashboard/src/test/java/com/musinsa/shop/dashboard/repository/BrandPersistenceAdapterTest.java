@@ -1,8 +1,8 @@
 package com.musinsa.shop.dashboard.repository;
 
 import com.musinsa.shop.dashboard.repository.jpa.BrandJpaRepository;
-import com.musinsa.shop.dashboard.repository.jpa.entity.BrandJpaEntity;
-import com.musinsa.shop.dashboard.repository.jpa.entity.BrandJpaEntityFixtures;
+import com.musinsa.shop.domain.entity.BrandJpaEntity;
+import com.musinsa.shop.domain.entity.BrandJpaEntityFixtures;
 import com.musinsa.shop.domain.model.Brand;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
