@@ -286,7 +286,7 @@ id | brand_id | category_code | name | price | updated_at | created_at
 ## shop-dashboard
 ### POST `localhost:8080/api/v1/brands`
 <details>
-  <summary>구현 3 - 브랜드 추가</summary>
+  <summary>구현 4 - 브랜드 추가</summary>
 
 #### 요청값
 ```json
@@ -311,7 +311,7 @@ id | brand_id | category_code | name | price | updated_at | created_at
 
 ### PUT `localhost:8080/api/v1/brands`
 <details>
-  <summary>구현 3 - 브랜드 수정</summary>
+  <summary>구현 4 - 브랜드 수정</summary>
 
 #### 요청값
 ```json
@@ -337,7 +337,7 @@ id | brand_id | category_code | name | price | updated_at | created_at
 
 ### DELETE `localhost:8080/api/v1/brands/10`
 <details>
-  <summary>구현 3 - 브랜드 삭제</summary>
+  <summary>구현 4 - 브랜드 삭제</summary>
 
 #### 요청값
 삭제할 브랜드의 ID
@@ -349,7 +349,7 @@ Http Status OK
 
 ### POST `localhost:8080/api/v1/products`
 <details>
-  <summary>구현 3 - 제품 추가</summary>
+  <summary>구현 4 - 제품 추가</summary>
 
 #### 요청값
 ```json
@@ -385,7 +385,7 @@ Http Status OK
 
 ### PUT `localhost:8080/api/v1/products`
 <details>
-  <summary>구현 3 - 제품 수정</summary>
+  <summary>구현 4 - 제품 수정</summary>
 
 #### 요청값
 ```json
@@ -422,7 +422,7 @@ Http Status OK
 
 ### DELETE `localhost:8080/api/v1/products/1`
 <details>
-  <summary>구현 3 - 제품 삭제</summary>
+  <summary>구현 4 - 제품 삭제</summary>
 
 #### 요청값
 삭제할 제품의 ID
