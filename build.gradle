@@ -68,6 +68,8 @@ ext {
 				return []
 			case 'shop-dashboard':
 				return ["**/ShopDashboardApplication.*"]
+			case 'shop-style':
+				return ["**/ShopStyleApplication.*"]
 			default:
 				return []
 		}
