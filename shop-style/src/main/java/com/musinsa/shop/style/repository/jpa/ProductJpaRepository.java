@@ -13,13 +13,13 @@ public interface ProductJpaRepository extends Repository<ProductJpaEntity, Long>
     /**
      * 가격기준으로 오름차순 정렬해서 특정 카테고리의 모든 상품을 가져오기
      */
-    @Query("SELECT p FROM ProductJpaEntity p JOIN FETCH p.brand WHERE p.category.code = :categoryCode ORDER BY p.price ASC")
+    @Query("SELECT p FROM ProductJpaEntity p JOIN FETCH p.brand JOIN FETCH p.category WHERE p.category.code = :categoryCode ORDER BY p.price ASC")
     List<ProductJpaEntity> findAllByCategoryCodeOrderByPriceAsc(@Param("categoryCode") CategoryCode categoryCode);
 
     /**
      * 카테고리와 가격기준으로 오름차순 정렬해서 특정 브랜드의 모든 상품을 가져오기
      */
-    @Query("SELECT p FROM ProductJpaEntity p JOIN FETCH p.brand WHERE p.brand.id = :brandId ORDER BY p.category.code, p.price ASC")
+    @Query("SELECT p FROM ProductJpaEntity p JOIN FETCH p.brand JOIN FETCH p.category WHERE p.brand.id = :brandId ORDER BY p.category.code, p.price ASC")
     List<ProductJpaEntity> findAllByBrandIdOrderByCategoryCodeAscAndPriceAsc(@Param("brandId") Long brandId);
 
     /**

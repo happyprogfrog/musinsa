@@ -1,12 +1,12 @@
 package com.musinsa.shop.domain.enums;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Arrays;
 
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public enum CategoryCode {
     TOP("001", "상의"),
     OUTER("002", "아우터"),

@@ -18,7 +18,7 @@ public class BrandJpaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "alias", length = 50, nullable = false)
+    @Column(name = "alias", length = 50, nullable = false, unique = true)
     private String alias;
 
     @Column(name = "name", length = 50, nullable = false)

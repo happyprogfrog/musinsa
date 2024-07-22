@@ -33,11 +33,10 @@ public class ProductService {
     @Transactional(readOnly = true)
     public ProductPriceListDto getLowestPriceBrandInfoByCategory() {
         List<ProductPriceDto> minPriceProducts = new ArrayList<>();
-        long totalPrice = 0;
+        long totalPrice = 0L;
 
         for (Category category : loadCategoryPort.findAllCategories()) {
             List<Product> products = loadProductPort.findAllByCategoryCodeOrderByPriceAsc(category.getCode());
-
             if (!products.isEmpty()) {
                 Product lowestPriceProduct = products.stream()
                         .min(Comparator.comparing(Product::getPrice)
@@ -45,13 +44,13 @@ public class ProductService {
                         .orElse(null);
 
                 if (lowestPriceProduct != null) {
-                    ProductPriceDto info = new ProductPriceDto(
+                    minPriceProducts.add(new ProductPriceDto(
                             lowestPriceProduct.getBrand(),
                             category.getCode(),
                             lowestPriceProduct.getName(),
                             lowestPriceProduct.getPrice()
-                    );
-                    minPriceProducts.add(info);
+                    ));
+
                     totalPrice += lowestPriceProduct.getPrice();
                 }
             }
@@ -65,7 +64,7 @@ public class ProductService {
         int numOfCategories = loadCategoryPort.findAllCategories().size();
 
         Brand minPriceBrand = null;
-        List<ProductPriceDto> minPriceProducts = new ArrayList<>();
+        List<ProductPriceDto> minPriceProducts = null;
         long minPriceSum = Long.MAX_VALUE;
 
         for (Brand brand : loadBrandPort.findAllBrands()) {
@@ -73,9 +72,10 @@ public class ProductService {
             Map<Category, List<Product>> productsByCategory = products.stream()
                     .collect(Collectors.groupingBy(Product::getCategory));
 
-            if (productsByCategory.keySet().size() == numOfCategories) {
+            if (productsByCategory.size() == numOfCategories) {
                 List<ProductPriceDto> currentMinPriceProducts = productsByCategory.values().stream()
                         .map(categoryProducts -> ProductPriceDto.fromDomain(categoryProducts.get(0)))
+                        .sorted(Comparator.comparing(ProductPriceDto::categoryCode))
                         .toList();
 
                 long priceSum = currentMinPriceProducts.stream()
