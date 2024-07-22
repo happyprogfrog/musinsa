@@ -75,6 +75,7 @@ public class ProductService {
             if (productsByCategory.size() == numOfCategories) {
                 List<ProductPriceDto> currentMinPriceProducts = productsByCategory.values().stream()
                         .map(categoryProducts -> ProductPriceDto.fromDomain(categoryProducts.get(0)))
+                        .sorted(Comparator.comparing(ProductPriceDto::categoryCode))
                         .toList();
 
                 long priceSum = currentMinPriceProducts.stream()

@@ -1,11 +1,10 @@
 package com.musinsa.shop.style.repository.jpa;
 
 import com.musinsa.shop.domain.entity.CategoryJpaEntity;
-import com.musinsa.shop.domain.enums.CategoryCode;
 import org.springframework.data.repository.Repository;
 
-import java.util.Optional;
+import java.util.List;
 
 public interface CategoryJpaRepository extends Repository<CategoryJpaEntity, Long>, ReadOnlyRepository<CategoryJpaEntity, Long> {
-    Optional<CategoryJpaEntity> findByCode(CategoryCode code);
+    List<CategoryJpaEntity> findAllByOrderByCodeAsc();
 }

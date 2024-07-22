@@ -2,7 +2,6 @@ package com.musinsa.shop.style.repository;
 
 import com.musinsa.shop.domain.entity.CategoryJpaEntity;
 import com.musinsa.shop.domain.model.Category;
-import com.musinsa.shop.style.cache.LocalCacheType;
 import com.musinsa.shop.style.repository.jpa.CategoryJpaRepository;
 import com.musinsa.shop.style.service.persistence.LoadCategoryPort;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,7 @@ public class CategoryPersistenceAdapter implements LoadCategoryPort {
     @Override
     @Cacheable(cacheNames = "categories")
     public List<Category> findAllCategories() {
-        return categoryJpaRepository.findAll().stream()
+        return categoryJpaRepository.findAllByOrderByCodeAsc().stream()
                 .map(CategoryJpaEntity::toDomain)
                 .toList();
     }
